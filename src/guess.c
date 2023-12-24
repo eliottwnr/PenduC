@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
+
+#include "guess.h"
+
+// safe letter input
+char input(){
+	char letter = getchar(); 
+	letter = toupper(letter); // get char to uppercase
+
+	while (getchar() != '\n'); // clear buffer
+
+	return letter; 
+}	
+
+
+// return 1 if player has won and 0 if not
+int won(const bool *letterGuessed, int const lenWord){
+	for (int count = 0; count < lenWord; count++){
+		if (letterGuessed[count] == 0){ // if a letter hasn't been discovered yet
+			return 0; 
+		}
+	}
+
+	return 1; 
+}
+
+
+// print * for letters not discovered 
+void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int const lenWord){ 
+	char *wordToPrint = NULL; 
+
+	wordToPrint = malloc(lenWord * sizeof(char)); 
+	if (wordToPrint == NULL){ // if malloc didn't worked 
+		printf("ERREUR RAM DANS guess.c\n");
+		exit(0); // exit program 
+	}
+
+	for (int count = 0; count < lenWord; count++){
+		if (letterGuessed[count]){ // if the letter has been discovered 
+			wordToPrint[count] = wordToGuess[count]; // add it clearly to wordToPrint
+		}
+		else {
+			wordToPrint[count] = '*'; 
+		}
+	}
+	printf("Le mot à trouver est : %s\n", wordToPrint); 
+
+	free(wordToPrint); // free dynamically allocated space 
+}
+
+
+// check if the letter gived is in the word
+int isInWord(char const letter, char const *wordToGuess, bool *letterGuessed, int const lenWord){
+	int inWord = 0; 
+	for (int count = 0; count < lenWord; count++){
+		if (letter == wordToGuess[count]){
+			letterGuessed[count] = true; 
+			inWord = 1; // don't return immediately in case there is multiple times the letter in the word
+		}
+	}
+	return inWord; 
+}
+
+
+// add letter to the array of false-tried letters
+int addLetterTried(int const letter, char *lettersTried){
+	for (int count = 0; count < LETTERS_IN_ALPHABET; count++){
+		if (lettersTried[count] == letter){ // if the letter is already in the array 
+			return 1; // don't add it 2 times
+		}
+	}
+
+	for (int count = LETTERS_IN_ALPHABET-1; count > 0; count--){
+		lettersTried[count] = lettersTried[count-1]; // gives space for the letter to add
+	}
+	lettersTried[0] = letter; // add the last letter to the 1st box
+	return 0; 
+}
