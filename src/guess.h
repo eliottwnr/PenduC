@@ -8,5 +8,6 @@ int won(const bool *letterGuessed, int const lenWord);
 void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int const lenWord); 
 int isInWord(char const letter, char const *wordToGuess, bool *letterGuessed, int const lenWord); 
 int addLetterTried(int const letter, char *lettersTried); 
+void drawHangman(int attempts); 
 
 #endif

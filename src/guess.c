@@ -80,3 +80,20 @@ int addLetterTried(int const letter, char *lettersTried){
 	lettersTried[0] = letter; // add the last letter to the 1st box
 	return 0; 
 }
+
+
+// draw a hangman based on attempts
+void drawHangman(int try) {
+   	// Define the different stages of the hangman
+	char *hangman[] = {         
+		"  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n=======",
+		"  ____\n |    |\n O    |\n/|\\   |\n/     |\n      |\n=======",         
+		"  ____\n |    |\n O    |\n/|\\   |\n      |\n      |\n=======",         
+       		"  ____\n |    |\n O    |\n/|    |\n      |\n      |\n=======",         
+       		"  ____\n |    |\n O    |\n |    |\n      |\n      |\n=======",
+       		"  ____\n |    |\n O    |\n      |\n      |\n      |\n=======",
+		"  ____\n |    |\n      |\n      |\n      |\n      |\n======="
+   	};     
+	// Display the appropriate hangman stage
+	printf("%s\n", hangman[try]); 
+}
