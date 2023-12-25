@@ -38,9 +38,9 @@ int main(int argc, char argv[]){
 
 	char lettersTried[LETTERS_IN_ALPHABET] = {0}; 
 	
-	int try = 7; // initial number of tries 
+	int try = 6; // initial number of tries 
 	char letter = 0; 
-	while (try > 0 && !won(letterGuessed, lenWord)){ // if there is at least 1 try and the user hasn't won
+	while (!won(letterGuessed, lenWord)){ // if there is at least 1 try and the user hasn't won
 		printWordToGuess(wordToGuess, letterGuessed, lenWord); 
 
 		printf("Ta lettre : "); 
@@ -50,20 +50,26 @@ int main(int argc, char argv[]){
 			printf("La lettre %c est dans le mot !\n", letter); 
 		}
 		else {
-			printf("La lettre %c n'est pas dans le mot ...\n", letter); 
 			if (!addLetterTried(letter, lettersTried)){ // if the letter hasn't been tried previously
 				try--;
 			}
+			if (try == 0){
+				break; 
+			}	
+			printf("La lettre %c n'est pas dans le mot ...\n", letter); 
+			
 		}
 
+		drawHangman(try); 
 		printf("Il reste %d essai(s)\n", try); 
+		printf("Lettres pas dans le mot : %s\n", lettersTried); 
 
 		printf("\n"); 
-		printf("Lettres pas dans le mot : %s\n", lettersTried); 
 	}
 
 	// end of the game
 	if (try == 0){
+		drawHangman(0); 
 		printf("Perdu ... le mot était %s\n", wordToGuess); 
 	}
 	else {
