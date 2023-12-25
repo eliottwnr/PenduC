@@ -12,8 +12,12 @@ char input(){
 	letter = toupper(letter); // get char to uppercase
 
 	while (getchar() != '\n'); // clear buffer
-
-	return letter; 
+	
+	//check if the character is a letter
+	if (letter >= 65 && letter <= 90){
+		return letter; 
+	}
+	return 0; 
 }	
 
 

@@ -43,8 +43,16 @@ int main(int argc, char argv[]){
 	while (!won(letterGuessed, lenWord)){ // if there is at least 1 try and the user hasn't won
 		printWordToGuess(wordToGuess, letterGuessed, lenWord); 
 
-		printf("Ta lettre : "); 
-		letter = input(); // safe letter input 
+		do {
+			printf("Ta lettre : "); 
+			letter = input(); 
+
+			if (!letter){
+				printf("Ceci n'est pas une lettre ! \n\n"); 
+			}
+		} while (!letter); // while the character given isn't a letter
+
+
 		printf("\n\n"); 
 		if (isInWord(letter, wordToGuess, letterGuessed, lenWord)){
 			printf("La lettre %c est dans le mot !\n", letter); 
