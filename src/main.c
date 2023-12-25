@@ -54,8 +54,10 @@ int main(int argc, char argv[]){
 			if (!addLetterTried(letter, lettersTried)){ // if the letter hasn't been tried previously
 				try--;
 			}
-			printf("Plus que %d essais\n", try); 
 		}
+
+		printf("Il reste %d essai(s)\n", try); 
+
 		printf("\n"); 
 		printf("Lettres pas dans le mot : %s\n", lettersTried); 
 	}
