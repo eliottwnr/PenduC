@@ -1,29 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ncurses.h>
+#include <unistd.h>
 
+#include "main.h"
 #include "guess.h"
 #include "word.h"
+#include "tui.h"
 
 
 // safe input
 int setDifficulty(){
 	int difficulty = 0; 
 	do {
-		printf("Difficulté (1 = facile, 2 = moyenne, 3 = difficile) : ");  
-		scanf("%d", &difficulty); 
-		while (getchar() != '\n'); // clear the buffer 
+		mvprintw(2, COLUMN, "(1 = facile, 2 = moyenne, 3 = difficile)");  
+		mvprintw(1, COLUMN, "Difficulte : ");  
+		scanw("%d", &difficulty); 
+		refresh(); 
 
 		if (difficulty > 3 || difficulty < 1){
-			printf("La difficulté doit être comprise entre 1 et 3 ! \n\n"); 
+			clear(); 
+			mvprintw(1, COLUMN, "La difficulte doit etre comprise entre 1 et 3 !"); 
+			refresh(); 
+			sleep(1); 
 		}
 	} while (difficulty > 3 || difficulty < 1); 
 
+	noecho(); 
+	curs_set(0); 
+	clear(); 
 	return difficulty; 
 }
 
 
 int main(int argc, char argv[]){
+	initCurses(); 
+
 	int difficulty = setDifficulty(); 
 
 	int lenWord = calculateLenWord(difficulty); 
@@ -36,7 +49,10 @@ int main(int argc, char argv[]){
 
 	// if allocation didn't worked 
 	if (wordToGuess == NULL || letterGuessed == NULL){
-		printf("ERREUR RAM DANS main.c\n"); 
+		clear(); 
+		mvprintw(1, COLUMN, "ERREUR RAM DANS main.c"); 
+		refresh(); 
+		sleep(1); 
 		exit(0); // quit program 
 	}
 
@@ -46,52 +62,59 @@ int main(int argc, char argv[]){
 	
 	int try = 6; // initial number of tries 
 	char letter = 0; 
+
 	while (!won(letterGuessed, lenWord)){ // if there is at least 1 try and the user hasn't won
 		printWordToGuess(wordToGuess, letterGuessed, lenWord); 
+		drawHangman(try); 
+
+		mvprintw(10, COLUMN, "Lettres pas dans le mot : %s", lettersTried); 
+		refresh(); 
 
 		do {
-			printf("Ta lettre : "); 
 			letter = input(); 
 
 			if (!letter){
-				printf("Ceci n'est pas une lettre ! \n\n"); 
+				move(12, COLUMN); 
+				mvprintw(12, COLUMN, "Ceci n'est pas une lettre ! "); 
+				refresh(); 
+
+				sleep(1); 
+				move(12, COLUMN); 
+				clrtoeol(); 
+				refresh(); 
 			}
 		} while (!letter); // while the character given isn't a letter
-
-
-		printf("\n\n"); 
-		if (isInWord(letter, wordToGuess, letterGuessed, lenWord)){
-			printf("La lettre %c est dans le mot !\n", letter); 
-		}
-		else {
+		
+		if (!isInWord(letter, wordToGuess, letterGuessed, lenWord)){
 			if (!addLetterTried(letter, lettersTried)){ // if the letter hasn't been tried previously
 				try--;
 			}
 			if (try == 0){
 				break; 
 			}	
-			printf("La lettre %c n'est pas dans le mot ...\n", letter); 
-			
 		}
-
-		drawHangman(try); 
-		printf("Il reste %d essai(s)\n", try); 
-		printf("Lettres pas dans le mot : %s\n", lettersTried); 
-
-		printf("\n"); 
 	}
 
 	// end of the game
+	clear(); 
+	drawHangman(0); 
+
 	if (try == 0){
-		drawHangman(0); 
-		printf("Perdu ... le mot était %s\n", wordToGuess); 
+		mvprintw(12, COLUMN, "Perdu ... le mot etait %s", wordToGuess); 
 	}
 	else {
-		printf("Gagné ! le mot était %s\n", wordToGuess); 
+		mvprintw(12, COLUMN, "Gagne ! le mot etait %s", wordToGuess); 
 	}
+	refresh(); 
+
+	sleep(1); 
+	mvprintw(14, COLUMN, "Appuyer sur une touche pour quitter..."); 
+	refresh(); 
 
 	// free dynamically allocated ram 
 	free(wordToGuess);
 	free(letterGuessed); 
+
+	quitCurses(); 
 	return 0; 
 }

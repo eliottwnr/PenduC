@@ -3,16 +3,17 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <ncurses.h>
+#include <unistd.h>
 
 #include "guess.h"
+#include "main.h"
 
 // safe letter input
 char input(){
-	char letter = getchar(); 
+	char letter = getch(); 
 	letter = toupper(letter); // get char to uppercase
 
-	while (getchar() != '\n'); // clear buffer
-	
 	//check if the character is a letter
 	if (letter >= 65 && letter <= 90){
 		return letter; 
@@ -39,7 +40,10 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 
 	wordToPrint = malloc(lenWord * sizeof(char)); 
 	if (wordToPrint == NULL){ // if malloc didn't worked 
-		printf("ERREUR RAM DANS guess.c\n");
+		clear(); 
+		printw("ERREUR RAM DANS guess.c\n");
+		refresh(); 
+		sleep(1); 
 		exit(0); // exit program 
 	}
 
@@ -51,7 +55,8 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 			wordToPrint[count] = '*'; 
 		}
 	}
-	printf("Le mot à trouver est : %s\n", wordToPrint); 
+	mvprintw(1, COLUMN, "Le mot a trouver est : %s\n", wordToPrint); 
+	refresh(); 
 
 	free(wordToPrint); // free dynamically allocated space 
 }
@@ -90,14 +95,15 @@ int addLetterTried(int const letter, char *lettersTried){
 void drawHangman(int try) {
    	// Define the different stages of the hangman
 	char *hangman[] = {         
-		"  ____\n |    |\n O    |\n/|\\   |\n/ \\   |\n      |\n=======",
-		"  ____\n |    |\n O    |\n/|\\   |\n/     |\n      |\n=======",         
-		"  ____\n |    |\n O    |\n/|\\   |\n      |\n      |\n=======",         
-       		"  ____\n |    |\n O    |\n/|    |\n      |\n      |\n=======",         
-       		"  ____\n |    |\n O    |\n |    |\n      |\n      |\n=======",
-       		"  ____\n |    |\n O    |\n      |\n      |\n      |\n=======",
-		"  ____\n |    |\n      |\n      |\n      |\n      |\n======="
+		"            ____\n           |    |\n           O    |\n          /|\\   |\n          / \\   |\n                |\n          =======",
+		"            ____\n           |    |\n           O    |\n          /|\\   |\n          /     |\n                |\n          =======",         
+		"            ____\n           |    |\n           O    |\n          /|\\   |\n                |\n                |\n          =======",         
+       		"            ____\n           |    |\n           O    |\n          /|    |\n                |\n                |\n          =======",         
+       		"            ____\n           |    |\n           O    |\n           |    |\n                |\n                |\n          =======",
+       		"            ____\n           |    |\n           O    |\n                |\n                |\n                |\n          =======",
+		"            ____\n           |    |\n                |\n                |\n                |\n                |\n          ======="
    	};     
 	// Display the appropriate hangman stage
-	printf("%s\n", hangman[try]); 
+	mvprintw(2, 0, "%s\n", hangman[try]); 
+	refresh(); 
 }

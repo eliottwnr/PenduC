@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ncurses.h>
 
 #include "word.h"
 #include "random.h"
@@ -54,7 +55,8 @@ void chooseWord(char *wordToGuess, int const lenWord, int const difficulty){
 	}
 
 	if (file == NULL){ // if the file couldn't be opened 
-		printf("IMPOSSIBLE D'OUVRIR LE FICHIER\n"); 
+		printw("IMPOSSIBLE D'OUVRIR LE FICHIER\n"); 
+		refresh(); 
 		exit(0); // quit program 
 	}
 
