@@ -9,9 +9,15 @@
 // safe input
 int setDifficulty(){
 	int difficulty = 1; 
-	printf("Difficulté (1 = facile, 2 = moyenne, 3 = difficile) : ");  
-	scanf("%d", &difficulty); 
-	while (getchar() != '\n'); // clear the buffer 
+	do {
+		printf("Difficulté (1 = facile, 2 = moyenne, 3 = difficile) : ");  
+		scanf("%d", &difficulty); 
+		while (getchar() != '\n'); // clear the buffer 
+
+		if (difficulty > 3 || difficulty < 1){
+			printf("La difficulté doit être comprise entre 1 et 3 ! \n\n"); 
+		}
+	} while (difficulty > 3 || difficulty < 1); 
 
 	return difficulty; 
 }
