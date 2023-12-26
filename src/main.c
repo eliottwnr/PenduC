@@ -97,7 +97,7 @@ int main(int argc, char argv[]){
 
 	// end of the game
 	clear(); 
-	drawHangman(0); 
+	drawHangman(try); 
 
 	if (try == 0){
 		mvprintw(12, COLUMN, "Perdu ... le mot etait %s", wordToGuess); 
