@@ -8,7 +8,7 @@
 
 // safe input
 int setDifficulty(){
-	int difficulty = 1; 
+	int difficulty = 0; 
 	do {
 		printf("Difficulté (1 = facile, 2 = moyenne, 3 = difficile) : ");  
 		scanf("%d", &difficulty); 
