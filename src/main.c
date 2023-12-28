@@ -15,15 +15,16 @@ int setDifficulty(){
 	int difficulty = 0; 
 	do {
 		mvprintw(2, COLUMN, "(1 = facile, 2 = moyenne, 3 = difficile)");  
-		mvprintw(1, COLUMN, "Difficulte : ");  
+		mvprintw(1, COLUMN, "Difficulté : ");  
 		scanw("%d", &difficulty); 
 		refresh(); 
 
 		if (difficulty > 3 || difficulty < 1){
 			clear(); 
-			mvprintw(1, COLUMN, "La difficulte doit etre comprise entre 1 et 3 !"); 
+			mvprintw(1, COLUMN, "La difficulté doit être comprise entre 1 et 3 !"); 
 			refresh(); 
 			sleep(1); 
+			clear(); 
 		}
 	} while (difficulty > 3 || difficulty < 1); 
 
@@ -54,6 +55,11 @@ int main(int argc, char argv[]){
 		refresh(); 
 		sleep(1); 
 		exit(0); // quit program 
+	}
+
+	// init the letterGuessed array to false
+	for (int count = 0; count < lenWord; count++){
+		letterGuessed[count] = false; 
 	}
 
 	chooseWord(wordToGuess, lenWord, difficulty); // choose a random word 
@@ -100,10 +106,10 @@ int main(int argc, char argv[]){
 	drawHangman(try); 
 
 	if (try == 0){
-		mvprintw(12, COLUMN, "Perdu ... le mot etait %s", wordToGuess); 
+		mvprintw(12, COLUMN, "Perdu ... le mot était %s", wordToGuess); 
 	}
 	else {
-		mvprintw(12, COLUMN, "Gagne ! le mot etait %s", wordToGuess); 
+		mvprintw(12, COLUMN, "Gagné ! le mot était %s", wordToGuess); 
 	}
 	refresh(); 
 

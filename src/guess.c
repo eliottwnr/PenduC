@@ -55,7 +55,7 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 			wordToPrint[count] = '*'; 
 		}
 	}
-	mvprintw(1, COLUMN, "Le mot a trouver est : %s\n", wordToPrint); 
+	mvprintw(1, COLUMN, "Le mot à trouver est : %s\n", wordToPrint); 
 	refresh(); 
 
 	free(wordToPrint); // free dynamically allocated space 
