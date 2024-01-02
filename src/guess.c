@@ -47,12 +47,13 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 		exit(0); // exit program 
 	}
 
+	// change the for condition below if the difficulty is set to 2
 	int condition = lenWord; 
-	if (lenWord == 7){
-		condition = lenWord-1; 
+	if (lenWord == 7){ 
+		condition = lenWord-1;  
 	}
 
-	for (int count = 0; count <= condition ; count++){
+	for (int count = 0; count <= condition ; count++){ 
 		if (letterGuessed[count]){ // if the letter has been discovered 
 			wordToPrint[count] = wordToGuess[count]; // add it clearly to wordToPrint
 		}
