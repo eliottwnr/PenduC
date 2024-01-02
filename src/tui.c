@@ -8,7 +8,8 @@ void initCurses(){
 	initscr(); 
 	cbreak(); 
 	keypad(stdscr, TRUE); 
-	echo(); 
+	noecho(); 
+	curs_set(0); 
 }
 
 void quitCurses(){

@@ -12,28 +12,32 @@
 
 // safe input
 int setDifficulty(){
-	int difficulty = 0; 
+	char difficulty = 0; 
 	do {
 		mvprintw(2, COLUMN, "(1 = facile, 2 = moyenne, 3 = difficile)");  
 		mvprintw(1, COLUMN, "Difficulté : ");  
-		scanw("%d", &difficulty); 
+		difficulty = getch(); 
 		refresh(); 
 
-		if (difficulty > 3 || difficulty < 1){
-			clear(); 
-			mvprintw(1, COLUMN, "La difficulté doit être comprise entre 1 et 3 !"); 
-			refresh(); 
-			sleep(1); 
-			clear(); 
+
+		switch (difficulty){
+			case '1': 
+				return 1; 
+			case '2': 
+				return 2; 
+			case '3': 
+				return 3; 
+			default: 
+				clear(); 
+				mvprintw(1, COLUMN, "Ceci n'est pas une lettre ! "); 
+				refresh(); 
+				sleep(1); 
+				clear(); 
 		}
-	} while (difficulty > 3 || difficulty < 1); 
+	} while (difficulty > '3' || difficulty < '1'); 
 
-	noecho(); 
-	curs_set(0); 
 	clear(); 
-	return difficulty; 
 }
-
 
 int main(int argc, char argv[]){
 	initCurses(); 
