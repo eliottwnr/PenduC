@@ -47,7 +47,7 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 		exit(0); // exit program 
 	}
 
-	for (int count = 0; count < lenWord; count++){
+	for (int count = 0; count <= lenWord; count++){
 		if (letterGuessed[count]){ // if the letter has been discovered 
 			wordToPrint[count] = wordToGuess[count]; // add it clearly to wordToPrint
 		}
