@@ -47,7 +47,12 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 		exit(0); // exit program 
 	}
 
-	for (int count = 0; count <= lenWord; count++){
+	int condition = lenWord; 
+	if (lenWord == 7){
+		condition = lenWord-1; 
+	}
+
+	for (int count = 0; count <= condition ; count++){
 		if (letterGuessed[count]){ // if the letter has been discovered 
 			wordToPrint[count] = wordToGuess[count]; // add it clearly to wordToPrint
 		}
@@ -55,6 +60,7 @@ void printWordToGuess(char const *wordToGuess, bool const *letterGuessed, int co
 			wordToPrint[count] = '*'; 
 		}
 	}
+
 	mvprintw(1, COLUMN, "Le mot à trouver est : %s\n", wordToPrint); 
 	refresh(); 
 
