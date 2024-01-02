@@ -15,7 +15,7 @@ int setDifficulty(){
 	char difficulty = 0; 
 	do {
 		mvprintw(2, COLUMN, "(1 = facile, 2 = moyenne, 3 = difficile)");  
-		mvprintw(1, COLUMN, "Difficulté : ");  
+		mvprintw(1, COLUMN, "Entrer la difficulté");  
 		difficulty = getch(); 
 		refresh(); 
 
