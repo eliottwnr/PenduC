@@ -29,7 +29,7 @@ int setDifficulty(){
 				return 3; 
 			default: 
 				clear(); 
-				mvprintw(1, COLUMN, "Ceci n'est pas une lettre ! "); 
+				mvprintw(1, COLUMN, "La difficulté doit être comprise entre 1 et 3 !"); 
 				refresh(); 
 				sleep(1); 
 				clear(); 
