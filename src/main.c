@@ -117,7 +117,7 @@ int main(int argc, char argv[]){
 	}
 	refresh(); 
 
-	sleep(1); 
+	sleep(2); 
 	if (replay() == true){
 		main(0, ""); 
 	}
