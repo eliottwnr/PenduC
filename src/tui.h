@@ -2,6 +2,6 @@
 #define TUI_H
 
 void initCurses(); 
-void quitCurses(); 
+bool replay(); 
 
 #endif

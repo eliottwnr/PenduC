@@ -13,12 +13,12 @@
 // safe input
 int setDifficulty(){
 	char difficulty = 0; 
+
 	do {
 		mvprintw(2, COLUMN, "(1 = facile, 2 = moyenne, 3 = difficile)");  
 		mvprintw(1, COLUMN, "Entrer la difficulté");  
 		difficulty = getch(); 
 		refresh(); 
-
 
 		switch (difficulty){
 			case '1': 
@@ -118,13 +118,17 @@ int main(int argc, char argv[]){
 	refresh(); 
 
 	sleep(1); 
-	mvprintw(14, COLUMN, "Appuyer sur une touche pour quitter..."); 
-	refresh(); 
+	if (replay() == true){
+		main(0, ""); 
+	}
 
-	// free dynamically allocated ram 
-	free(wordToGuess);
-	free(letterGuessed); 
+	else {
+		// free dynamically allocated ram 
+		free(wordToGuess);
+		free(letterGuessed); 
 
-	quitCurses(); 
+		endwin(); 
+	}
+
 	return 0; 
 }
