@@ -18,8 +18,8 @@ void initCurses(){
 
 bool replay(){
 	clear(); 
-	mvprintw(1, COLUMN, "Appuier sur Q pour quitter"); 
-	mvprintw(3, COLUMN, "Appuier sur n'importe quelle autre touche pour rejouer"); 
+	mvprintw(1, COLUMN, "Appuyer sur Q pour quitter"); 
+	mvprintw(3, COLUMN, "Appuyer sur n'importe quelle autre touche pour rejouer"); 
 
 	char quit = getch(); 
 

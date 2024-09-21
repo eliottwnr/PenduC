@@ -77,7 +77,7 @@ int main(int argc, char argv[]){
 		printWordToGuess(wordToGuess, letterGuessed, lenWord); 
 		drawHangman(try); 
 
-		mvprintw(10, COLUMN, "Lettres pas dans le mot : %s", lettersTried); 
+		mvprintw(10, COLUMN, "Lettres ne figurant pas dans le mot : %s", lettersTried); 
 		refresh(); 
 
 		do {
